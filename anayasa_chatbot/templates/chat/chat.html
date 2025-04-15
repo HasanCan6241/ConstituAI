@@ -1,0 +1,665 @@
+<!-- templates/chat/chat.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Anayasa Chatbot - Sohbet{% endblock %}
+
+{% block extra_css %}
+<style>
+        :root {
+            --primary-hover: #1d4ed8;
+            --secondary-color: #4b5563;
+            --accent-color: #f59e0b;
+            --light-bg: #f9fafb;
+            --dark-text: #1f2937;
+            --light-text: #f3f4f6;
+            --border-radius: 16px;
+            --message-radius: 18px;
+            --transition: all 0.3s ease;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        body {
+            background-color: #f0f2f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--dark-text);
+        }
+
+        .chat-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+        }
+
+        .chat-card {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            background-color: white;
+            border: none;
+        }
+
+        .chat-header {
+            background-color: white;
+            padding: 1.25rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            color: var(--dark-text);
+        }
+
+        .header-title i {
+            color: var(--primary-color);
+            font-size: 1.25rem;
+        }
+
+        .chat-messages {
+            height: 65vh;
+            overflow-y: auto;
+            padding: 1.5rem;
+            background-color: var(--light-bg);
+            scrollbar-width: thin;
+            scrollbar-color: #cbd5e0 #f1f5f9;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background-color: #cbd5e0;
+            border-radius: 20px;
+            border: 2px solid #f1f5f9;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            max-width: 85%;
+        }
+
+        .message-user {
+            align-items: flex-end;
+            margin-left: auto;
+        }
+
+        .message-bot {
+            align-items: flex-start;
+            margin-right: auto;
+        }
+
+        .message-content {
+            padding: 12px 18px;
+            border-radius: var(--message-radius);
+            position: relative;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            word-wrap: break-word;
+            transition: var(--transition);
+        }
+
+        .message-user .message-content {
+            background-color: var(--primary-color);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message-bot .message-content {
+            background-color: white;
+            color: var(--dark-text);
+            border-bottom-left-radius: 4px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .message-meta {
+            font-size: 0.75rem;
+            margin-top: 6px;
+            color: #6b7280;
+        }
+
+        .typing-indicator {
+            padding: 12px 18px;
+            background-color: white;
+            border-radius: var(--message-radius);
+            display: none;
+            width: max-content;
+            margin-bottom: 20px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .typing-indicator span {
+            height: 8px;
+            width: 8px;
+            float: left;
+            margin: 0 1px;
+            background-color: var(--primary-color);
+            display: block;
+            border-radius: 50%;
+            opacity: 0.4;
+        }
+
+        .typing-indicator span:nth-of-type(1) {
+            animation: 1s blink infinite 0.3333s;
+        }
+
+        .typing-indicator span:nth-of-type(2) {
+            animation: 1s blink infinite 0.6666s;
+        }
+
+        .typing-indicator span:nth-of-type(3) {
+            animation: 1s blink infinite 0.9999s;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .chat-input-container {
+            padding: 1.25rem;
+            background-color: white;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .chat-input-wrapper {
+            display: flex;
+            position: relative;
+        }
+
+        .chat-input {
+            border-radius: 24px;
+            padding: 12px 60px 12px 20px;
+            resize: none;
+            border: 1px solid #e5e7eb;
+            width: 100%;
+            font-size: 1rem;
+            line-height: 1.5;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            max-height: 120px;
+            transition: var(--transition);
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .send-button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .send-button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .send-button:disabled {
+            background-color: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .feedback-btn {
+            background: none;
+            border: none;
+            color: #9ca3af;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            margin-left: 8px;
+            padding: 4px;
+            border-radius: 50%;
+        }
+
+        .feedback-btn:hover {
+            color: var(--accent-color);
+            background-color: rgba(245, 158, 11, 0.1);
+        }
+
+        .empty-chat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #6b7280;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .empty-chat i {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            opacity: 0.7;
+        }
+
+        .empty-chat h4 {
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        /* Feedback Modal */
+        .modal-content {
+            border-radius: 12px;
+            border: none;
+            box-shadow: var(--shadow);
+        }
+
+        .modal-header {
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1.25rem;
+        }
+
+        .modal-footer {
+            border-top: 1px solid #e5e7eb;
+            padding: 1.25rem;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .rating {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .star {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #d1d5db;
+            transition: var(--transition);
+        }
+
+        .star:hover,
+        .star.active {
+            color: var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        .star i.fas {
+            color: var(--accent-color);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            border-color: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background-color: #f3f4f6;
+            border-color: #f3f4f6;
+            color: #4b5563;
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .btn-secondary:hover {
+            background-color: #e5e7eb;
+            border-color: #e5e7eb;
+            color: #374151;
+        }
+
+        pre {
+            background-color: #f3f4f6;
+            border-radius: 8px;
+            padding: 12px;
+            overflow-x: auto;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .message-content a {
+            color: #3b82f6;
+            text-decoration: underline;
+        }
+
+        .message-bot .message-content a {
+            color: #2563eb;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container chat-container">
+        <div class="chat-card shadow-sm">
+            <div class="chat-header">
+                <div class="header-title">
+                    <i class="fas fa-balance-scale"></i>
+                    <span>Anayasa Chatbot ile Sohbet</span>
+                </div>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="message {% if message.sender == 'user' %}message-user{% else %}message-bot{% endif %}">
+                            <div class="message-content">
+                                {{ message.content|linebreaksbr }}
+                                {% if message.sender == 'bot' %}
+                                    <button class="feedback-btn" data-bs-toggle="modal" data-bs-target="#feedbackModal" data-message-id="{{ message.id }}">
+                                        <i class="far fa-thumbs-up"></i>
+                                    </button>
+                                {% endif %}
+                            </div>
+                            <div class="message-meta">
+                                {{ message.timestamp|date:"H:i" }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-chat">
+                        <i class="fas fa-balance-scale"></i>
+                        <h4>Anayasa Chatbot'a Hoş Geldiniz!</h4>
+                        <p>Türkiye Cumhuriyeti Anayasası hakkında sorularınızı sorabilirsiniz.</p>
+                        <p>Örnek: "Anayasaya göre vatandaşlık hakkı nasıl kazanılır?" veya "Temel hak ve özgürlükler nelerdir?"</p>
+                    </div>
+                {% endif %}
+                <div class="message message-bot">
+                    <div class="typing-indicator" id="typing-indicator">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-container">
+                <form method="post" id="chat-form">
+                    {% csrf_token %}
+                    <div class="chat-input-wrapper">
+                        <textarea class="chat-input" id="id_message" name="message" placeholder="Anayasa hakkında bir soru sorun..." rows="1"></textarea>
+                        <button type="submit" class="send-button" id="send-btn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback Modal -->
+    <div class="modal fade" id="feedbackModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Yanıtı Değerlendirin</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="message-id" value="">
+                    <div class="mb-4 text-center">
+                        <div class="rating">
+                            <span class="star" data-value="1"><i class="far fa-star"></i></span>
+                            <span class="star" data-value="2"><i class="far fa-star"></i></span>
+                            <span class="star" data-value="3"><i class="far fa-star"></i></span>
+                            <span class="star" data-value="4"><i class="far fa-star"></i></span>
+                            <span class="star" data-value="5"><i class="far fa-star"></i></span>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="feedback-comment" class="form-label">Yorumunuz (İsteğe bağlı)</label>
+                        <textarea class="form-control" id="feedback-comment" rows="3" placeholder="Bu yanıt hakkında ne düşünüyorsunuz?"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="button" class="btn btn-primary" id="submit-feedback">Gönder</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Textarea boyutunu içeriğe göre otomatik ayarlama
+            const textarea = document.querySelector('.chat-input');
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight < 120) ? this.scrollHeight + 'px' : '120px';
+            });
+
+            // Mesajların olduğu div'i en alta kaydır
+            const scrollToBottom = () => {
+                const chatMessages = document.getElementById('chat-messages');
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            };
+
+            scrollToBottom();
+
+            // AJAX ile form gönderimi
+            $('#chat-form').on('submit', function(e) {
+                e.preventDefault();
+
+                const message = $('#id_message').val().trim();
+                if (!message) return;
+
+                // Kullanıcı mesajını UI'a ekle
+                const userMessageHtml = `
+                    <div class="message message-user">
+                        <div class="message-content">
+                            ${message.replace(/\n/g, '<br>')}
+                        </div>
+                        <div class="message-meta">
+                            ${new Date().getHours()}:${String(new Date().getMinutes()).padStart(2, '0')}
+                        </div>
+                    </div>
+                `;
+
+                $('#chat-messages .empty-chat').remove();
+                $(userMessageHtml).insertBefore('#typing-indicator');
+                scrollToBottom();
+
+                // Yazıyor göstergesi
+                $('#typing-indicator').show();
+                scrollToBottom();
+
+                // Form alanını temizle ve devre dışı bırak
+                $('#id_message').val('').prop('disabled', true).css('height', 'auto');
+                $('#send-btn').prop('disabled', true);
+
+                // AJAX isteği
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "chat" %}',
+                    data: {
+                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                        'message': message
+                    },
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    success: function(data) {
+                        // Yazıyor göstergesini gizle
+                        $('#typing-indicator').hide();
+
+                        // Bot mesajını UI'a ekle
+                        const botMessageHtml = `
+                            <div class="message message-bot">
+                                <div class="message-content">
+                                    ${data.message.replace(/\n/g, '<br>')}
+                                    <button class="feedback-btn" data-bs-toggle="modal" data-bs-target="#feedbackModal" data-message-id="${data.message_id}">
+                                        <i class="far fa-thumbs-up"></i>
+                                    </button>
+                                </div>
+                                <div class="message-meta">
+                                    ${new Date().getHours()}:${String(new Date().getMinutes()).padStart(2, '0')}
+                                </div>
+                            </div>
+                        `;
+
+                        $(botMessageHtml).insertBefore('#typing-indicator');
+                        scrollToBottom();
+
+                        // Form alanını etkinleştir
+                        $('#id_message').prop('disabled', false).focus();
+                        $('#send-btn').prop('disabled', false);
+                    },
+                    error: function() {
+                        // Yazıyor göstergesini gizle
+                        $('#typing-indicator').hide();
+
+                        // Hata mesajı göster
+                        const errorMessageHtml = `
+                            <div class="message message-bot">
+                                <div class="message-content" style="background-color: #fee2e2; color: #b91c1c; border: 1px solid #fecaca;">
+                                    <i class="fas fa-exclamation-circle me-2"></i> Üzgünüm, bir hata oluştu. Lütfen daha sonra tekrar deneyin.
+                                </div>
+                                <div class="message-meta">
+                                    ${new Date().getHours()}:${String(new Date().getMinutes()).padStart(2, '0')}
+                                </div>
+                            </div>
+                        `;
+
+                        $(errorMessageHtml).insertBefore('#typing-indicator');
+                        scrollToBottom();
+
+                        // Form alanını etkinleştir
+                        $('#id_message').prop('disabled', false).focus();
+                        $('#send-btn').prop('disabled', false);
+                    }
+                });
+            });
+
+            // Yıldız derecelendirmesi
+            $('.star').on('click', function() {
+                const value = $(this).data('value');
+
+                // Tüm yıldızları temizle
+                $('.star i').removeClass('fas fa-star').addClass('far fa-star');
+
+                // Seçilen yıldıza kadar doldur
+                for (let i = 1; i <= value; i++) {
+                    $(`.star[data-value="${i}"] i`).removeClass('far fa-star').addClass('fas fa-star');
+                }
+
+                // Yıldızlara active class ekle
+                $('.star').removeClass('active');
+                for (let i = 1; i <= value; i++) {
+                    $(`.star[data-value="${i}"]`).addClass('active');
+                }
+            });
+
+            // Feedback modalı açıldığında mesaj ID'sini al
+            $('#feedbackModal').on('show.bs.modal', function(event) {
+                const button = $(event.relatedTarget);
+                const messageId = button.data('message-id');
+                $('#message-id').val(messageId);
+
+                // Yıldızları sıfırla
+                $('.star i').removeClass('fas fa-star').addClass('far fa-star');
+                $('.star').removeClass('active');
+                $('#feedback-comment').val('');
+            });
+
+            // Feedback gönderimi
+            $('#submit-feedback').on('click', function() {
+                const messageId = $('#message-id').val();
+                let rating = 0;
+
+                // Seçilen yıldız sayısını hesapla
+                $('.star i.fas').each(function() {
+                    rating++;
+                });
+
+                if (rating === 0) {
+                    alert('Lütfen bir derecelendirme seçin.');
+                    return;
+                }
+
+                const comment = $('#feedback-comment').val();
+
+                // AJAX ile feedback gönder
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "submit_feedback" %}',
+                    data: {
+                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                        'message_id': messageId,
+                        'rating': rating,
+                        'comment': comment
+                    },
+                    success: function() {
+                        // Modalı kapat
+                        $('#feedbackModal').modal('hide');
+
+                        // Teşekkür toast mesajı göster
+                        const toastHtml = `
+                            <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                                <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                                    <div class="toast-header">
+                                        <strong class="me-auto">Anayasa Chatbot</strong>
+                                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Kapat"></button>
+                                    </div>
+                                    <div class="toast-body">
+                                        Değerlendirmeniz için teşekkür ederiz!
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
+                        $('body').append(toastHtml);
+
+                        // 3 saniye sonra toast'ı kaldır
+                        setTimeout(function() {
+                            $('.toast').toast('hide');
+                            setTimeout(function() {
+                                $('.toast').parent().remove();
+                            }, 500);
+                        }, 3000);
+                    },
+                    error: function() {
+                        alert('Değerlendirmeniz gönderilirken bir hata oluştu. Lütfen daha sonra tekrar deneyin.');
+                    }
+                });
+            });
+
+            // Enter tuşu ile mesaj gönderme
+            $('#id_message').on('keydown', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    $('#chat-form').submit();
+                }
+            });
+        });
+    </script>
+{% endblock %}

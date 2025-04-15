@@ -1,0 +1,121 @@
+<!-- templates/chat/about.html -->
+{% extends 'base.html' %}
+
+{% block title %}Anayasa Chatbot - Hakkında{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow rounded-4 mb-5">
+                <div class="card-body p-5">
+                    <div class="text-center mb-5">
+                        <h1 class="display-4 fw-bold mb-3">Proje Hakkında</h1>
+                        <div class="divider-custom mx-auto my-4">
+                            <div class="divider-custom-line"></div>
+                            <div class="divider-custom-icon"><i class="fas fa-balance-scale"></i></div>
+                            <div class="divider-custom-line"></div>
+                        </div>
+                    </div>
+
+                    <p class="lead mb-5 text-muted">
+                        Anayasa Chatbot, Türkiye Cumhuriyeti vatandaşlarının anayasal haklarını ve
+                        özgürlüklerini daha iyi anlamaları için tasarlanmış yapay zeka destekli bir araçtır.
+                    </p>
+
+                    <div class="feature-card p-4 mb-4 bg-light rounded-3">
+                        <h3 class="fw-bold mb-3 d-flex align-items-center">
+                            <i class="fas fa-bullseye text-primary me-3"></i> Hedefimiz
+                        </h3>
+                        <p class="mb-0">
+                            Temel hedefimiz, Türkiye Cumhuriyeti Anayasası'nın içeriğini herkes için erişilebilir
+                            kılmak ve vatandaşların haklarını ve sorumluluklarını daha iyi anlamalarına yardımcı olmaktır.
+                        </p>
+                    </div>
+
+                    <div class="feature-card p-4 mb-4 bg-light rounded-3">
+                        <h3 class="fw-bold mb-3 d-flex align-items-center">
+                            <i class="fas fa-cogs text-primary me-3"></i> Nasıl Çalışır?
+                        </h3>
+                        <p class="mb-2">
+                            Anayasa Chatbot, Türkiye Cumhuriyeti Anayasası'nın tam metni üzerinde eğitilmiş bir
+                            yapay zeka modelini kullanır.
+                        </p>
+                        <p class="mb-0">
+                            Kullanıcılar, doğal dilde sorular sorarak anayasal konular hakkında bilgi alabilirler.
+                            Chatbot, soruları analiz eder ve anayasa metinlerine dayanarak doğru ve anlaşılır
+                            yanıtlar vermeye çalışır.
+                        </p>
+                    </div>
+
+                    <div class="feature-card p-4 mb-4 bg-light rounded-3">
+                        <h3 class="fw-bold mb-3 d-flex align-items-center">
+                            <i class="fas fa-exclamation-triangle text-primary me-3"></i> Sınırlamalar
+                        </h3>
+                        <p class="mb-0">
+                            Chatbot, sadece Türkiye Cumhuriyeti Anayasası'nın mevcut içeriği hakkında bilgi verebilir.
+                            Hukuki tavsiye sağlamaz ve herhangi bir hukuki durumda referans olarak kullanılmamalıdır.
+                            Ciddi hukuki sorularınız için her zaman bir avukata danışmanızı öneririz.
+                        </p>
+                    </div>
+
+
+
+                    <div class="text-center">
+                        <a href="{% url 'chat' %}" class="btn btn-primary btn-lg px-5 py-3 rounded-pill shadow">
+                            <i class="fas fa-comments me-2"></i> Şimdi Deneyin
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .divider-custom {
+        width: 100%;
+        max-width: 7rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .divider-custom-line {
+        width: 100%;
+        height: 0.25rem;
+        background-color: #dee2e6;
+        border-radius: 1rem;
+    }
+
+    .divider-custom-icon {
+        font-size: 1.5rem;
+        color: var(--bs-primary);
+        margin: 0 1rem;
+    }
+
+    .feature-card {
+        transition: all 0.3s ease;
+        border-left: 4px solid var(--bs-primary);
+    }
+
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    }
+
+    .tech-item {
+        font-weight: 500;
+    }
+
+    .btn-primary {
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 0.5rem 1rem rgba(var(--bs-primary-rgb), 0.4);
+    }
+</style>
+
+{% endblock %}

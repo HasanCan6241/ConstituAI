@@ -1,0 +1,288 @@
+<!-- templates/chat/home.html -->
+{% extends 'base.html' %}
+
+{% block title %}Anayasa Chatbot - Ana Sayfa{% endblock %}
+
+{% load static %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero py-5 bg-light">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 pe-lg-5">
+                <h1 class="display-4 fw-bold mb-4">Anayasa <span class="d-block">Hakkında Her Şey</span></h1>
+                <p class="lead mb-4 text-secondary">
+                    Türkiye Cumhuriyeti Anayasası hakkında sorularınızı yanıtlayan yapay zeka destekli chatbot ile temel hak ve özgürlüklerinizi öğrenin.
+                </p>
+                <div class="d-grid gap-3 d-md-flex mb-5">
+                    <a href="{% url 'chat' %}" class="btn btn-primary btn-lg px-4 me-md-2 rounded-pill shadow-lg">
+                        <i class="fas fa-comments me-2"></i> Chatbot'a Sor
+                    </a>
+                    <a href="{% url 'about' %}" class="btn btn-outline-secondary btn-lg px-4 rounded-pill">
+                        <i class="fas fa-info-circle me-2"></i> Daha Fazla Bilgi
+                    </a>
+                </div>
+                <div class="badges-row d-flex flex-wrap gap-3 mt-2">
+                    <div class="badge bg-light text-dark rounded-pill px-3 py-2 shadow-sm">
+                        <i class="fas fa-check-circle text-success me-2"></i> 7/24 Erişim
+                    </div>
+                    <div class="badge bg-light text-dark rounded-pill px-3 py-2 shadow-sm">
+                        <i class="fas fa-bolt text-warning me-2"></i> Anında Yanıt
+                    </div>
+                    <div class="badge bg-light text-dark rounded-pill px-3 py-2 shadow-sm">
+                        <i class="fas fa-lock text-primary me-2"></i> Güvenilir Bilgi
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mt-5 mt-lg-0">
+                <div class="hero-image-container position-relative">
+                    <div class="hero-image-blob position-absolute"></div>
+                    <img src="{% static 'anayasa_chatbot.png' %}" alt="Anayasa Chatbot" class="img-fluid rounded-4 shadow-lg hero-image position-relative">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features py-5 my-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="badge bg-primary bg-opacity-10 text-primary fw-bold rounded-pill px-3 py-2 mb-3">ÖZELLİKLERİMİZ</span>
+            <h2 class="display-5 fw-bold mb-3">Neler Sunuyoruz?</h2>
+            <div class="divider-custom mx-auto mb-4">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+            <p class="lead text-muted w-75 mx-auto">Anayasa Chatbot ile yasal bilgilere erişim artık çok daha kolay ve erişilebilir.</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-card h-100 rounded-4 p-4 border-0 shadow-sm">
+                    <div class="feature-icon-wrapper mb-4">
+                        <div class="feature-icon-bg rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                    </div>
+                    <h3 class="fw-bold mb-3">Yapay Zeka</h3>
+                    <p class="text-muted mb-0">Llama-3.8 ile eğitilmiş, anayasal sorularınızı yanıtlayan akıllı bir chatbot.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="feature-card h-100 rounded-4 p-4 border-0 shadow-sm">
+                    <div class="feature-icon-wrapper mb-4">
+                        <div class="feature-icon-bg rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="fas fa-book"></i>
+                        </div>
+                    </div>
+                    <h3 class="fw-bold mb-3">Doğru Bilgi</h3>
+                    <p class="text-muted mb-0">Türkiye Cumhuriyeti Anayasası'ndan doğrudan alınan bilgilerle güvenilir yanıtlar.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="feature-card h-100 rounded-4 p-4 border-0 shadow-sm">
+                    <div class="feature-icon-wrapper mb-4">
+                        <div class="feature-icon-bg rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                    <h3 class="fw-bold mb-3">Herkes İçin</h3>
+                    <p class="text-muted mb-0">Hukuki terimlerden arındırılmış, anlaşılır açıklamalarla vatandaşların erişimine uygun.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq bg-light py-5 rounded-4 my-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 mb-4 mb-lg-0">
+                <span class="badge bg-primary bg-opacity-10 text-primary fw-bold rounded-pill px-3 py-2 mb-3">SIK SORULAN SORULAR</span>
+                <h2 class="display-6 fw-bold mb-4">Merak Edilenler</h2>
+                <p class="text-muted mb-4">Anayasa Chatbot hakkında en çok sorulan soruların yanıtlarını buradan öğrenebilirsiniz.</p>
+                <a href="{% url 'about' %}" class="btn btn-outline-primary rounded-pill px-4">
+                    <i class="fas fa-arrow-right me-2"></i> Tüm Detayları Gör
+                </a>
+            </div>
+            <div class="col-lg-7">
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item border-0 mb-3 shadow-sm rounded-3">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button rounded-3" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                Anayasa Chatbot nasıl çalışır?
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Yapay zeka modelimiz, Türkiye Cumhuriyeti Anayasası üzerine özel olarak eğitilmiştir. Sorularınızı doğal dilde analiz eder ve anayasa metinlerinden en doğru yanıtı sağlar.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item border-0 mb-3 shadow-sm rounded-3">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed rounded-3" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                Verdiği bilgiler güvenilir mi?
+                            </button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Evet, chatbot yalnızca resmi anayasa metinlerinden alınan bilgileri kullanarak cevap üretmektedir. Ancak kesin sonuç sunmaz.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item border-0 shadow-sm rounded-3">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed rounded-3" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                Kullanımı tamamen ücretsiz mi?
+                            </button>
+                        </h2>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Evet, Anayasa Chatbot hizmeti tamamen ücretsizdir ve tüm vatandaşların kullanımına açıktır.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call To Action -->
+<section class="cta">
+    <div class="container">
+        <div class="cta-card bg-primary text-white p-5 rounded-4 shadow-lg text-center my-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h2 class="display-6 fw-bold mb-3">Şimdi Anayasayı Keşfedin</h2>
+                    <p class="lead mb-4 opacity-75">Temel haklarınız, özgürlükleriniz ve anayasal düzen hakkında merak ettiklerinizi sorun.</p>
+                    <a href="{% url 'chat' %}" class="btn btn-light btn-lg px-5 py-3 rounded-pill shadow text-primary fw-bold">
+                        <i class="fas fa-comments me-2"></i> Hemen Başlayın
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Gradient Text */
+    .text-gradient {
+        background: linear-gradient(90deg, var(--bs-primary), #6a11cb);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* Feature Cards */
+    .feature-card {
+        transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .feature-icon-wrapper {
+        height: 80px;
+        width: 80px;
+        margin: 0 auto;
+        position: relative;
+    }
+
+    .feature-icon-bg {
+        width: 70px;
+        height: 70px;
+        background-color: var(--bs-primary);
+        background-image: linear-gradient(135deg, var(--bs-primary), #6a11cb);
+        color: white;
+        font-size: 28px;
+        box-shadow: 0 10px 20px rgba(var(--bs-primary-rgb), 0.3);
+    }
+
+    /* Divider */
+    .divider-custom {
+        width: 100%;
+        max-width: 7rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .divider-custom-line {
+        width: 100%;
+        height: 0.25rem;
+        background-color: #dee2e6;
+        border-radius: 1rem;
+    }
+
+    .divider-custom-icon {
+        font-size: 1rem;
+        color: var(--bs-primary);
+        margin: 0 1rem;
+    }
+
+    /* Hero Image */
+    .hero-image-container {
+        max-width: 550px;
+        margin: 0 auto;
+    }
+
+    .hero-image {
+        z-index: 2;
+    }
+
+    .hero-image-blob {
+        width: 90%;
+        height: 90%;
+        background-color: var(--bs-primary);
+        opacity: 0.1;
+        filter: blur(40px);
+        border-radius: 40% 60% 60% 40% / 60% 30% 70% 40%;
+        z-index: 1;
+        top: 5%;
+        left: 5%;
+    }
+
+    .floating-card {
+        bottom: 30px;
+        right: 20px;
+        z-index: 3;
+    }
+
+    .dot-indicator {
+        width: 10px;
+        height: 10px;
+    }
+
+    .badges-row {
+        margin-top: 20px;
+    }
+
+    /* CTA */
+    .cta-card {
+        background-image: linear-gradient(135deg, var(--bs-primary), #6a11cb);
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Accordion */
+    .accordion-button:not(.collapsed) {
+        background-color: rgba(var(--bs-primary-rgb), 0.1);
+        color: var(--bs-primary);
+        box-shadow: none;
+    }
+
+    .accordion-button:focus {
+        box-shadow: none;
+        border-color: rgba(var(--bs-primary-rgb), 0.25);
+    }
+</style>
+{% endblock %}
