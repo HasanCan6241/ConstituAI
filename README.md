@@ -1,6 +1,6 @@
 # Constitution Chatbot
 
-![Anayasa Chatbot Banner](project-images/anayasa_chatbot.png)
+<img src="project-images/anayasa_chatbot.png" alt="Anayasa Chatbot Banner" width="850" height="450">  <!-- Add an image relevant to your project -->
 
 ## 📑 About the Project
 
@@ -161,7 +161,7 @@ The web application includes the following pages:
 
 ## 📝 Lisans
 
-Bu proje [MIT Lisansı](LICENSE) altında lisanslanmıştır.
+This project is licensed under the [MIT License](LICENSE).
 ---
 
 ⭐ If you like this project, don't forget to star it!
