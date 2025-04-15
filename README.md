@@ -71,16 +71,16 @@ The web application includes the following pages:
 ### 🏠 Homepage
 ![Homepage](project-images/home.png)
 
-### 🏠 Chatbot Page
+### 🤖 Chatbot Page
 ![Chatbot Page](project-images/chatbot.png)
 
-### 🏠 About Me
+### 👤 About Me
 ![About Me](project-images/about.png)
 
-### 🏠 Conversation History
+### 🕓 Conversation History
 ![Conversation History](project-images/chat-history.png)
 
-### 🏠 Conversation Detail
+### 💬 Conversation Detail
 ![Conversation Detail](project-images/chat-detail.png)
 
 ![Conversation Detail](project-images/chat-detail-2.png)
