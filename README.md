@@ -5,7 +5,6 @@
 ## 📑 About the Project
 
 Constitution Chatbot is an artificial intelligence-based question-answer system trained on the Constitution of the Republic of Turkey. This project was developed so that citizens can easily learn their constitutional rights and state structure. Using a dataset of 875 questions and answers created with the Gemini-1.5 Flash model, the Llama-3.8 model was fine-tuned and made available to everyone with a comprehensive Django web application.
-![Chatbot Arayüzü](https://raw.githubusercontent.com/username/anayasa-chatbot/main/chatbot-interface.png)
 
 ## 🌟 Features
 
@@ -15,7 +14,6 @@ Constitution Chatbot is an artificial intelligence-based question-answer system 
 - **Responsive Design**: Interface usable on all screen sizes, including mobile devices
 - **Fast and Accurate Answers**: Optimized performance with finetuned version of Llama-3.8 model
 
-![User Interface](https://raw.githubusercontent.com/username/anayasa-chatbot/main/user-interface.png)
 
 ## 🔧 Technologies
 
@@ -41,38 +39,50 @@ Constitution Chatbot is an artificial intelligence-based question-answer system 
 - PyTorch
 - Unsloth
 - Hugging Face Transformers
-- 
-### Adımlar
 
-1. Repoyu klonlayın:
-```bash
-git clone https://github.com/HasanCan6241/ConstituAI.git
-cd anayasa-chatbot
-```
+## 📊 Dataset Creation Process
 
-2. Virtual environment oluşturun ve aktif edin:
-```bash
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-venv\Scripts\activate     # Windows
-```
+The dataset used in this project includes 875 question-answer pairs extracted from the Constitution of the Republic of Turkey. Dataset creation process:
 
-3. Gerekli paketleri yükleyin:
-```bash
-pip install -r requirements.txt
-```
+1. Constitution text extracted from PDF
+2. Question-answer pairs created using Gemini-1.5 Flash model
+3. Data cleaning and normalization processes applied
+4. Prepared for fine-tuning to Llama-3.8 model
 
-4. Veritabanı migrasyonlarını yapın:
-```bash
-python manage.py migrate
-```
+Some topics covered in the dataset:
+- Fundamental rights and freedoms
+- Legislative, executive and judicial
+- Constitutional amendments
+- Citizenship rights
+- State structure
 
-5. Projeyi çalıştırın:
-```bash
-python manage.py runserver
-```
+## 👥 User Interface
 
-6. Tarayıcınızda `http://localhost:8000` adresine giderek uygulamayı kullanmaya başlayabilirsiniz.
+The web application includes the following pages:
+- **Homepage**: Project introduction and features
+- **Chatbot Page**: Area for interaction with AI
+- **About Me**: Project and developer information
+- **Register/Login**: User account management
+- **Conversation History**: View previous chats
+- **Conversation History**: View conversation details
+
+## 🖼️ Project Screenshots
+
+### 🏠 Homepage
+![Homepage](project-images/home.png)
+
+### 🏠 Chatbot Page
+![Chatbot Page](project-images/chatbot.png)
+
+### 🏠 About Me
+![About Me](project-images/about.png)
+
+### 🏠 Conversation History
+![Conversation History](project-images/chat-history.png)
+
+### 🏠 Conversation Detail
+![Conversation Detail](project-images/chat-detail.png)
+
 
 ## 🤖 Using the Model
 
@@ -112,52 +122,38 @@ outputs = model.generate(
 )
 ```
 Click here to access the [model](https://huggingface.co/HasanCan6241/anayasa-lora-Llama-3.8)
-![Model Demo](https://raw.githubusercontent.com/username/anayasa-chatbot/main/model-demo.png)
 
-## 📊 Dataset Creation Process
+### Adımlar
 
-The dataset used in this project includes 875 question-answer pairs extracted from the Constitution of the Republic of Turkey. Dataset creation process:
+1. Repoyu klonlayın:
+```bash
+git clone https://github.com/HasanCan6241/ConstituAI.git
+cd anayasa-chatbot
+```
 
-1. Constitution text extracted from PDF
-2. Question-answer pairs created using Gemini-1.5 Flash model
-3. Data cleaning and normalization processes applied
-4. Prepared for fine-tuning to Llama-3.8 model
+2. Virtual environment oluşturun ve aktif edin:
+```bash
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+venv\Scripts\activate     # Windows
+```
 
-Some topics covered in the dataset:
-- Fundamental rights and freedoms
-- Legislative, executive and judicial
-- Constitutional amendments
-- Citizenship rights
-- State structure
+3. Gerekli paketleri yükleyin:
+```bash
+pip install -r requirements.txt
+```
 
-## 👥 User Interface
+4. Veritabanı migrasyonlarını yapın:
+```bash
+python manage.py migrate
+```
 
-![Homepage](https://raw.githubusercontent.com/username/anayasa-chatbot/main/homepage.png)
+5. Projeyi çalıştırın:
+```bash
+python manage.py runserver
+```
 
-The web application includes the following pages:
-- **Homepage**: Project introduction and features
-- **Chatbot Page**: Area for interaction with AI
-- **About Me**: Project and developer information
-- **Register/Login**: User account management
-- **Conversation History**: View previous chats
-- **Conversation History**: View conversation details
-
-## 🖼️ Project Screenshots
-
-### 🏠 Homepage
-![Homepage](project-images/home.png)
-
-### 🏠 Homepage
-![Chatbot Page](project-images/chatbot.png)
-
-### 🏠 About Me
-![About Me](project-images/about.png)
-
-### 🏠 Conversation History
-![Conversation History](project-images/chat-history.png)
-
-### 🏠 Conversation Detail
-![Conversation Detail](project-images/chat-detail.png)
+6. Tarayıcınızda `http://localhost:8000` adresine giderek uygulamayı kullanmaya başlayabilirsiniz.
 
 ## 📝 Lisans
 
