@@ -81,11 +81,11 @@ The web application includes the following pages:
 ![Conversation History](project-images/chat-history.png)
 
 ### 🏠 Conversation Detail
-1- ![Conversation Detail](project-images/chat-detail.png)
+![Conversation Detail](project-images/chat-detail.png)
 
-2- ![Conversation Detail](project-images/chat-detail-2.png)
+![Conversation Detail](project-images/chat-detail-2.png)
 
-3- ![Conversation Detail](project-images/chat-detail-3.png)
+![Conversation Detail](project-images/chat-detail-3.png)
 
 ## Model Architecture
 
